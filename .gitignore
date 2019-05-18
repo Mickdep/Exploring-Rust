@@ -1,0 +1,97 @@
+Skip to content
+ 
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@Mickdep 
+1,383
+36,208 5,716 rust-lang/rust
+ Code  Issues 4,741  Pull requests 177  Projects 2  Insights
+rust/.gitignore
+@oli-obk oli-obk Ignore some IDE-local files
+67ede4c on 8 Jan
+@catamorphism @brson @graydon @lilyball @alexcrichton @omasanori @huonw @lkuper @jyasskin @dmanescu @adrientetar @recrack @vadimcn @tamird @steveklabnik @stepancheg @solson @rkruppe @froystig @RalfJung @nibrahim @chris-morgan @mbebenita @vertexclique @kennytm @jschaf
+67 lines (64 sloc)  786 Bytes
+    
+*~
+.#*
+.DS_Store
+.cproject
+.hg/
+.hgignore
+.idea
+*.iml
+__pycache__/
+*.py[cod]
+*$py.class
+.project
+.settings/
+.valgrindrc
+.vscode/
+.favorites.json
+/*-*-*-*/
+/*-*-*/
+/Makefile
+/build
+/config.toml
+/dist/
+/dl/
+/doc
+/inst/
+/llvm/
+/mingw-build/
+/nd/
+/obj/
+/rt/
+/rustllvm/
+/src/libcore/unicode/DerivedCoreProperties.txt
+/src/libcore/unicode/DerivedNormalizationProps.txt
+/src/libcore/unicode/PropList.txt
+/src/libcore/unicode/ReadMe.txt
+/src/libcore/unicode/Scripts.txt
+/src/libcore/unicode/SpecialCasing.txt
+/src/libcore/unicode/UnicodeData.txt
+/stage[0-9]+/
+/target
+target/
+/test/
+/tmp/
+tags
+tags.*
+TAGS
+TAGS.*
+\#*
+\#*\#
+config.mk
+config.stamp
+keywords.md
+lexer.ml
+mir_dump
+Session.vim
+src/etc/dl
+tmp.*.rs
+version.md
+version.ml
+version.texi
+.cargo
+!src/vendor/**
+/src/target/
+
+no_llvm_build
+
+© 2019 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
