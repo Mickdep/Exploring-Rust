@@ -1,4 +1,6 @@
 use std::io;
+use rand::Rng;
+
 fn main() {
     println!("Welcome to my guesing game.");
     println!("Input a string of 3 characters to guess: ");
@@ -12,8 +14,12 @@ fn main() {
         guess = get_user_input();
     }
 
-    //Passes the guess String to check_guess(), thus transferring ownership. check_guess() frees the memory.
+    //Pass the guess as so we transfer ownership to check_guess, which then frees that memory when it goes out of scope
     check_guess(guess);
+
+    println!("Please enter a number to guess: ");
+    let guess_int: u32  = get_user_input().trim().parse().expect("Please enter a valid number");
+    check_guess_number(guess_int);
 }
 
 //Takes String as argument so it takes ownership of the string
@@ -32,4 +38,14 @@ fn get_user_input() -> String{
     io::stdin().read_line(&mut input).expect("Failed to read line."); //Read input and store it in input
 
     return String::from(input.trim_end()); //Trim the trailing \r\n
+}
+
+fn check_guess_number(guess: u32){
+    let random_number = rand::thread_rng().gen_range(0, 101);
+    println!("Guessing: {}", guess);
+    if random_number == guess{
+        println!("You guessed it correctly");
+    }else{
+        println!("You guessed it incorrectly! The number was {}", random_number);
+    }
 }
