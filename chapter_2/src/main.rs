@@ -18,8 +18,8 @@ fn main() {
     check_guess(guess);
 
     println!("Please enter a number to guess: ");
-    let guess_int: u32  = get_user_input().trim().parse().expect("Please enter a valid number");
-    check_guess_number(guess_int);
+    let guess: u32  = get_user_input().trim().parse().expect("Please enter a valid number");
+    check_guess_number(guess);
 }
 
 //Takes String as argument so it takes ownership of the string
