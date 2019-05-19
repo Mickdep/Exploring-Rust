@@ -5,10 +5,38 @@ struct User {
     active: bool,
 }
 
+impl User {
+    fn are_equal(&self, other: &User) -> bool {
+        self.username == other.username
+            && self.password == other.password
+            && self.age == other.age
+            && self.active == other.active
+    }
+
+    fn is_authorized(&self, password: String) -> bool {
+        self.password == password
+    }
+
+    fn new() -> User {
+        User {
+            username: String::from("Default"),
+            password: String::from("DefaulPass"),
+            age: 0,
+            active: true,
+        }
+    }
+}
+
 #[derive(Debug)]
 struct Rectangle {
     width: u32,
     height: u32,
+}
+
+impl Rectangle {
+    fn calculate_area(&self) -> u32 {
+        self.width * self.height
+    }
 }
 
 //tuple structs
@@ -49,8 +77,45 @@ fn main() {
         height: 29287,
     };
 
-    let area: u32 = calculate_area(&rectangle);
+    let area: u32 = calculate_area_ext(&rectangle);
     println!("Area of the rectangle {:?} is: {}", rectangle, area);
+
+    println!(
+        "Area of the rectangle {:?} by calling its method is {}",
+        rectangle,
+        rectangle.calculate_area()
+    );
+
+    //User implementation code
+    let my_user = User {
+        username: String::from("MyUser"),
+        password: String::from("MyPassword"),
+        age: 25,
+        active: true,
+    };
+
+    let my_user2 = User {
+        username: String::from("MyUser2"),
+        password: String::from("Mypassword"),
+        age: 56,
+        active: false,
+    };
+
+    println!(
+        "Checking if user {} can authenticate with password {}...Result is: {}",
+        my_user.username,
+        "MyPassword",
+        my_user.is_authorized(String::from("MyPassword"))
+    );
+    println!(
+        "Checking user {} and user {} are equal: {}",
+        my_user.username,
+        my_user2.username,
+        my_user.are_equal(&my_user2)
+    );
+
+
+    let newest_user = User::new();
 }
 
 fn register_user(username: String, password: String, age: u8) -> User {
@@ -79,6 +144,6 @@ fn create_new_user_from_user(user: User, new_username: String, new_password: Str
     }
 }
 
-fn calculate_area(rectangle: &Rectangle) -> u32 {
+fn calculate_area_ext(rectangle: &Rectangle) -> u32 {
     rectangle.height * rectangle.width
 }
