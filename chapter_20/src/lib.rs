@@ -5,7 +5,7 @@ use std::sync::Mutex;
 
 struct Worker{
     id: u32,
-    thread: thread::JoinHandle<()>
+    thread: Option<thread::JoinHandle<()>>
 }
 
 impl Worker{
@@ -15,7 +15,7 @@ impl Worker{
             loop{
                 let job = receiver.lock().unwrap().recv().unwrap();
                 println!("Worker {} got job, executing...", id);
-                job.call_box();
+                job.call_box(); 
             }
         });
 
@@ -41,6 +41,16 @@ type Job = Box<dyn FnBox + Send + 'static>;
 pub struct ThreadPool{
     workers: Vec<Worker>,
     sender: mpsc::Sender<Job>
+}
+
+impl Drop for ThreadPool{
+    fn drop(&mut self){
+        for worker in &mut self.workers{
+            println!("Shutting down worker {}", worker.id);
+
+            worker.thread.join().unwrap();
+        }
+    }    
 }
 
 impl ThreadPool{
