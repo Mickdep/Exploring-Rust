@@ -1,22 +1,24 @@
+use chapter_20::ThreadPool;
 use std::fs;
 use std::io::prelude::*;
 use std::net::{TcpListener, TcpStream};
 
 fn main() {
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
-
-    // for stream in listener.incoming(){
-    //     let stream = stream.unwrap();
-
-    //     println!("Connection established!");
-    // }
-
-    for stream in listener.incoming() {
-        match stream {
-            Ok(s) => handle_connection(s),
-            Err(e) => println!("Error occurred: {}", e),
-        }
+    let pool = ThreadPool::new(4);
+    for stream in listener.incoming(){
+        let stream = stream.unwrap();
+        pool.execute(||{
+            handle_connection(stream);
+        });
     }
+
+    // for stream in listener.incoming() {
+    //     match stream {
+    //         Ok(s) => handle_connection(s),
+    //         Err(e) => println!("Error occurred: {}", e),
+    //     }
+    // }
 }
 
 fn handle_connection(mut stream: TcpStream) {
